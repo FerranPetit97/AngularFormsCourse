@@ -1,0 +1,23 @@
+input {
+  border-radius: 5px;
+  border: 2px solid;
+  &.is-valid {
+    border: 2px solid green;
+    border-radius: 5px;
+    color: green;
+  }
+  &.is-invalid {
+    border: 2px solid red;
+    border-radius: 5px;
+    color: red;
+  }
+}
+
+.messages {
+  opacity: 0;
+  transition: all 0.5s ease-in;
+  &.active {
+    opacity: 1;
+    color: red;
+  }
+}
