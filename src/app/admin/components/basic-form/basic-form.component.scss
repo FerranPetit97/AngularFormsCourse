@@ -1,23 +1,50 @@
 input {
-  border-radius: 5px;
-  border: 2px solid;
   &.is-valid {
-    border: 2px solid green;
-    border-radius: 5px;
     color: green;
   }
   &.is-invalid {
-    border: 2px solid red;
-    border-radius: 5px;
     color: red;
   }
 }
 
 .messages {
   opacity: 0;
-  transition: all 0.5s ease-in;
+  transition: all 0.3s ease-in;
+  height: 0;
   &.active {
+    margin-top: -10px;
+    margin-bottom: 10px;
+    height: 20px;
     opacity: 1;
     color: red;
   }
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  column-gap: 120px;
+  margin: 50px 50px 0 50px;
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  mat-error {
+    font-size: 18px;
+  }
+}
+
+.agreeCheckbox-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+  .agreeCheckbox {
+    margin: 0 12px;
+  }
+}
+
+.button-submit {
+  display: table-cell;
+  width: 490px;
 }

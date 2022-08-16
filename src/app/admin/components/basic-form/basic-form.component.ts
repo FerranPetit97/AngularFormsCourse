@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormBuilder,
 } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-basic-form',
@@ -22,17 +23,23 @@ export class BasicFormComponent implements OnInit {
     { name: 'Física' },
   ];
 
+  prefixes = [
+    { value: 'ES', viewValue: '+1' },
+    { value: 'IN', viewValue: '+2' },
+    { value: 'AL', viewValue: '+3' },
+  ];
+
   constructor(private formBuilder: FormBuilder) {
     this.buildForm();
   }
 
   ngOnInit(): void {
-    this.nameField.valueChanges.subscribe((value) => {
-      console.log(value);
-    });
-    this.form.valueChanges.subscribe((value) => {
-      console.log(value);
-    });
+    // this.nameField.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
+    // this.form.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
   }
 
   getNameValue() {
@@ -40,7 +47,10 @@ export class BasicFormComponent implements OnInit {
   }
 
   get nameField() {
-    return this.form.get('name');
+    return this.form.get('fullName.name');
+  }
+  get lastField() {
+    return this.form.get('fullName.last');
   }
   get emailField() {
     return this.form.get('email');
@@ -49,10 +59,10 @@ export class BasicFormComponent implements OnInit {
     return this.form.get('phone');
   }
   get dateField() {
-    return this.form.get('color');
+    return this.form.get('date');
   }
   get colorField() {
-    return this.form.get('date');
+    return this.form.get('color');
   }
   get ageField() {
     return this.form.get('age');
@@ -98,17 +108,98 @@ export class BasicFormComponent implements OnInit {
     }
   }
 
+  getErrorMessageEmail() {
+    if (this.emailField.errors?.['required']) {
+      return 'You must enter a value';
+    }
+    if (this.emailField.errors?.['email']) {
+      return 'Invalid Email';
+    }
+
+    return 'Check carefully the form';
+  }
+
+  getErrorMessageName() {
+    if (this.nameField.errors?.['required']) {
+      return 'You must enter a value';
+    }
+    if (this.nameField.errors?.['maxlength']) {
+      return 'Is more than 10 letters';
+    }
+    if (this.nameField.errors?.['pattern']) {
+      return 'Invalid characters';
+    }
+
+    return 'Check carefully the form';
+  }
+
+  getErrorMessageLastName() {
+    if (this.lastField.errors?.['required']) {
+      return 'You must enter a value';
+    }
+    if (this.lastField.errors?.['maxlength']) {
+      return 'Is more than 10 letters';
+    }
+    if (this.lastField.errors?.['pattern']) {
+      return 'Invalid characters';
+    }
+
+    return 'Check carefully the form';
+  }
+
+  getErrorMessagePhone() {
+    if (this.phoneField.errors?.['required']) {
+      return 'You must enter a value';
+    }
+    if (this.phoneField.errors?.['pattern']) {
+      return 'It must be a number';
+    }
+
+    return 'Check carefully the form';
+  }
+
+  getErrorMessageAge() {
+    if (this.ageField.errors?.['required']) {
+      return 'You must enter a value';
+    }
+    if (this.ageField.errors?.['min']) {
+      return 'You must be of legal age';
+    }
+    if (this.ageField.errors?.['max']) {
+      return 'You cannot be more than 100 years old';
+    }
+
+    return 'Check carefully the form';
+  }
+
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(10)]],
-      email: [''],
-      phone: ['', Validators.required],
+      fullName: this.formBuilder.group({
+        name: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z]+$/),
+          ],
+        ],
+        last: [
+          '',
+          [
+            Validators.required,
+            Validators.maxLength(10),
+            Validators.pattern(/^[a-zA-Z]+$/),
+          ],
+        ],
+      }),
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
       color: [''],
       date: [''],
-      age: [12],
+      age: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
       category: [''],
       tag: [''],
-      agree: [false],
+      agree: [false, [Validators.requiredTrue]],
       gender: [''],
       zone: [''],
       preference: [''],

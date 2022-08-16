@@ -8,14 +8,13 @@ import { MaterialModule } from './../material/material.module';
 import { NavComponent } from './components/nav/nav.component';
 import { BasicFormComponent } from './components/basic-form/basic-form.component';
 
-
 @NgModule({
-  declarations: [ NavComponent, BasicFormComponent],
+  declarations: [NavComponent, BasicFormComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
-  ]
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}
