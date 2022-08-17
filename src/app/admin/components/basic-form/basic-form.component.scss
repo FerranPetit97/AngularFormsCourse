@@ -7,6 +7,26 @@ input {
   }
 }
 
+form {
+  display: flex;
+  flex-direction: row;
+  column-gap: 120px;
+  margin: 50px 50px 0 50px;
+  justify-content: space-evenly;
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  mat-error {
+    font-size: 18px;
+  }
+}
+
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
 .messages {
   opacity: 0;
   transition: all 0.3s ease-in;
@@ -17,20 +37,6 @@ input {
     height: 20px;
     opacity: 1;
     color: red;
-  }
-}
-
-form {
-  display: flex;
-  flex-direction: row;
-  column-gap: 120px;
-  margin: 50px 50px 0 50px;
-  mat-form-field {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  mat-error {
-    font-size: 18px;
   }
 }
 
